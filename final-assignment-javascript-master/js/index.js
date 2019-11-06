@@ -1,21 +1,25 @@
-function JavaScriptFetch() {
-    var script = document.createElement('script');
-    script.src = "https://api.flickr.com/services/feeds/photos_public.gne?format=json&tags=" + document.getElementById("search").value;;
-    document.querySelector('head').appendChild(script);
+function createNode(element) {
+   return document.createElement(element);
 }
 
-function jsonFlickrFeed(data) {
-    var image = "";
-    data.items.forEach(function (element) {
-    image += "<img src=\"" + element.media.m + "\"/>";
-});
-    document.getElementById("outputDiv").innerHTML = image;
+function append(parent, el) {
+  return parent.appendChild(el);
 }
 
-var input = document.getElementById("search");
-input.addEventListener("keyup", function(event) {
-    if (event.keyCode === 13) {
-     event.preventDefault();
-     document.getElementById("submit").click(JavaScriptFetch());
-    }
-  });
+const ul = document.getElementById('authors');
+const url = 'https://api.flickr.com/services/rest?method=flickr.photos.search';
+fetch(url)
+.then((resp) => resp.json())
+.then(function(data) {
+  let authors = data.results;
+  return authors.map(function(author) {
+    let li = createNode('li'),
+        img = createNode('img')
+    img.src = author.picture.medium;
+    append(li, img);
+    append(ul, li);
+  })
+})
+.catch(function(error) {
+  console.log(JSON.stringify(error));
+});   
