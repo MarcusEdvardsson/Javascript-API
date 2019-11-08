@@ -30,7 +30,7 @@
 
 .pageInput {
     padding: 1rem;
-    width: 5%;
+    min-width: 7%;
     background: none;
     border: none;
     background-color: rgba(255,255,255,.4);
@@ -69,11 +69,12 @@
 
 .output {
     display: grid;
-    grid-template-columns: repeat(5, 230px);
+    grid-template-columns: repeat(auto-fit, 230px);
+    grid-template-rows: repeat(auto-fit);
     justify-content: center;
     align-items: center;
     grid-gap: 20px;
-    height: 100vh;
+    margin: 0 5%;
 }
 
 .output img {
@@ -88,7 +89,7 @@
 }
 
 .output img:hover {
-    transform: scale(1.15);
+    transform: scale(1.1);
     filter: grayscale(100%);
 }
 
@@ -120,16 +121,6 @@
 
 /* Media queries */
 
-@media only screen and (max-width: 1250px) {
-    .output {
-        display: grid;
-        grid-template-columns: repeat(4, 230px);
-    }
-}
+/* @media only screen and (max-width: 1250px) {
 
-@media only screen and (max-width: 1010px) {
-.output {
-    display: grid;
-    grid-template-columns: repeat(3, 230px);
-    }
 }
