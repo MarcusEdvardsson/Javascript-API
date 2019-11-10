@@ -1,3 +1,14 @@
+// Event listener för min submit-knapp 
+
+let input = document.getElementById("search");
+input.addEventListener("keyup", function(event) {
+    if (event.keyCode === 13) {
+    let query = document.getElementById('search').value;
+    event.preventDefault();
+    getAPI(query);
+    };
+});
+
 // Hämtar API från Flickr
 
 async function getAPI(text) {
@@ -26,17 +37,6 @@ function getImage(data) {
     lightboxFunction();
 }
 
-// Event listener för min submit-knapp 
-
-let input = document.getElementById("search");
-input.addEventListener("keyup", function(event) {
-    if (event.keyCode === 13) {
-    let query = document.getElementById('search').value;
-    event.preventDefault();
-    getAPI(query);
-    };
-});
-
 // Lightbox function 
 
 function lightboxFunction() {
@@ -62,3 +62,28 @@ function lightboxFunction() {
         lightbox.classList.remove('active')
     })
 }
+
+// Play toggler
+
+let myAudio = document.getElementById("myAudio");
+let isPlaying = false;
+
+function togglePlay() {
+    if (isPlaying) {
+        myAudio.pause()
+    } else {
+        myAudio.play();
+    }
+};
+    myAudio.onplaying = function() {
+        isPlaying = true;
+    };
+    myAudio.onpause = function() {
+        isPlaying = false;
+};
+
+let play = document.getElementById('playBtn')
+
+play.addEventListener('click', () => {
+    togglePlay();
+})
