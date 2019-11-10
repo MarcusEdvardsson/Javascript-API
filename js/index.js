@@ -1,9 +1,3 @@
-window.onload = function() {
-    let audio = new Audio();
-    audio.src = '../audio/SERINI-love.mp3';
-    audio.play();
-}
-
 // Hämtar API från Flickr
 
 async function getAPI(text) {
