@@ -38,7 +38,7 @@ function getImage(data) {
     lightboxFunction();
 }
 
-// Lightbox function 
+// Lightbox-funktionen
 
 function lightboxFunction() {
     const lightbox = document.createElement('div');
@@ -90,3 +90,17 @@ let play = document.getElementById('playBtn')
 play.addEventListener('click', () => {
     togglePlay();
 })
+
+// Scrolla till toppen på ESC-knapp
+
+document.addEventListener("keyup", function(event) {
+    if (event.keyCode === 27) {
+        let top = document.getElementById('top')
+        top.scrollIntoView({
+            behavior: "smooth", 
+            block: "start"
+        });
+    };
+});
+
+// Infinite scroll 
