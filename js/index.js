@@ -16,8 +16,9 @@ async function getAPI(text) {
     const METHOD = 'method=flickr.photos.search'
     const KEY = '&api_key=19d3e6e0acfe9c438f368e2c2bab1c5d'
     const FORMAT = "&format=json&nojsoncallback=1"
+    const SORT_RELEVANCE = '&sort=relevance'
     let page = document.getElementById('perPage').value;
-    const url = `${BASE_URL}${METHOD}${KEY}${FORMAT}&text=${text}&per_page=${page}`;
+    const url = `${BASE_URL}${METHOD}${KEY}${SORT_RELEVANCE}${FORMAT}&text=${text}&per_page=${page}`;
     let response = await fetch(url, {method: 'GET'});
     let data = await response.json();
     getImage(data)
@@ -70,9 +71,11 @@ let isPlaying = false;
 
 function togglePlay() {
     if (isPlaying) {
+        document.getElementById('playBtn').style.color = 'red';
         myAudio.pause()
     } else {
         myAudio.play();
+        document.getElementById('playBtn').style.color = 'lightgreen';
     }
 };
     myAudio.onplaying = function() {
