@@ -6,19 +6,22 @@ input.addEventListener("keyup", function(event) {
     let query = document.getElementById('search').value;
     event.preventDefault();
     getAPI(query);
+    clearForm();
     };
 });
 
 // Hämtar API från Flickr
 
+let page = 1;
+
 async function getAPI(text) {
     const BASE_URL = 'https://api.flickr.com/services/rest?'
     const METHOD = 'method=flickr.photos.search'
     const KEY = '&api_key=19d3e6e0acfe9c438f368e2c2bab1c5d'
-    const FORMAT = "&format=json&nojsoncallback=1"
+    const FORMAT = '&format=json&nojsoncallback=1'
     const SORT_RELEVANCE = '&sort=relevance'
-    let page = document.getElementById('perPage').value;
-    const url = `${BASE_URL}${METHOD}${KEY}${SORT_RELEVANCE}${FORMAT}&text=${text}&per_page=${page}`;
+    const PER_PAGE = '&per_page=50'
+    const url = `${BASE_URL}${METHOD}${KEY}${SORT_RELEVANCE}${FORMAT}&text=${text}${PER_PAGE}&page=${page}`;
     let response = await fetch(url, {method: 'GET'});
     let data = await response.json();
     getImage(data)
@@ -29,7 +32,7 @@ async function getAPI(text) {
 
 function getImage(data) {
     let output = document.getElementById('outputDiv');
-    output.innerHTML = "";
+    
     data.photos.photo.forEach(element => {
         let imgDiv = document.createElement('div')
         imgDiv.innerHTML = (`<img src="https://farm${element.farm}.staticflickr.com/${element.server}/${element.id}_${element.secret}.jpg"/>`);
@@ -104,3 +107,11 @@ document.addEventListener("keyup", function(event) {
 });
 
 // Infinite scroll 
+// Clearar search-inputen 
+
+let clearForm = () => {
+    let element = document.getElementById("outputDiv");
+    while (element.firstChild) {
+        element.removeChild(element.firstChild);
+    }
+};
